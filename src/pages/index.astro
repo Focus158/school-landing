@@ -38,10 +38,10 @@ import Footer from "../components/Footer.astro";
   </body>
 </html>
 
-<!-- Script para animaciones y detección por país -->
+<!-- Script para animaciones y geolocalización -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // Animación fade-in
+    // Animación en CTA
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -61,50 +61,49 @@ import Footer from "../components/Footer.astro";
     }
 
     // Geolocalización por país
-    const updateContentForCountry = (code: string) => {
-      const btn = document.getElementById(
-        "wspp-btn"
-      ) as HTMLAnchorElement | null;
-      if (!btn) return;
+    const updateContentForCountry = (code) => {
+      const btn = document.getElementById("wspp-btn");
+      const currencySpans = document.querySelectorAll(
+        "#precios .currency-symbol"
+      );
+      const prices = document.querySelectorAll(
+        "#precios p span.text-3xl"
+      );
 
-      const spans = document
-        .querySelector("#precios")
-        ?.querySelectorAll("p span.text-3xl");
-      if (!spans || spans.length < 3) return;
+      if (!btn || prices.length < 3) return;
+
+      const setContent = (href, symbol, values) => {
+        btn.href = href;
+        currencySpans.forEach((el) => (el.textContent = symbol));
+        prices.forEach((el, i) => (el.textContent = values[i]));
+      };
 
       if (code === "PE") {
-        btn.href = "https://wa.me/51996096191";
-        spans[0].textContent = "30";
-        spans[1].textContent = "100";
-        spans[2].textContent = "220";
+        setContent("https://wa.me/51996096191", "S/.", ["30", "100", "220"]);
       } else if (code === "CL") {
-        btn.href = "https://wa.me/56987654321";
-        spans[0].textContent = "7000";
-        spans[1].textContent = "24000";
-        spans[2].textContent = "52000";
+        setContent("https://wa.me/56987654321", "$", ["7000", "24000", "52000"]);
       } else if (code === "CO") {
-        btn.href = "https://wa.me/573001234567";
-        spans[0].textContent = "25000";
-        spans[1].textContent = "85000";
-        spans[2].textContent = "190000";
+        setContent("https://wa.me/573001234567", "$", ["25000", "85000", "190000"]);
+      } else {
+        // Default a Perú
+        setContent("https://wa.me/51996096191", "S/.", ["30", "100", "220"]);
       }
     };
 
-    // Detectar país real o simular
+    // Detectar país (producción) o simulado
     if (location.hostname === "localhost") {
-      const simulated = "PE"; // Cambia por 'PE', 'CO', etc. para pruebas
+      const simulated = "PE"; // Cambiar por 'CL', 'CO', etc.
       console.log("País simulado (modo local):", simulated);
       updateContentForCountry(simulated);
     } else {
       fetch("https://ipinfo.io/json?token=ce97066c11fc03")
         .then((res) => res.json())
         .then((data) => {
-          const code = data.country;
-          console.log("País detectado en producción:", code);
-          updateContentForCountry(code);
+          console.log("País detectado en producción:", data.country);
+          updateContentForCountry(data.country);
         })
         .catch(() => {
-          console.log("Fallo en geolocalización. Usando país por defecto (PE)");
+          console.log("Error al detectar país. Usando PE por defecto.");
           updateContentForCountry("PE");
         });
     }
