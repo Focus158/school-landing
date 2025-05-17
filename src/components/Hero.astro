@@ -1,0 +1,59 @@
+---
+
+---
+
+<section
+  id="inicio"
+  class="relative min-h-screen flex items-center justify-center text-white text-center"
+>
+  <!-- Imagen de fondo -->
+  <img
+    src="/students/hero.jpg"
+    alt="Estudiantes"
+    class="absolute inset-0 w-full h-full object-cover z-0"
+  />
+
+  <!-- Capa oscura personalizada -->
+  <div
+    class="absolute inset-0 z-10"
+    style="background-color: rgba(18, 15, 45, 0.5);"
+  >
+  </div>
+
+  <!-- Contenido -->
+  <div class="relative z-20 max-w-3xl px-4">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+      Estudia a tu ritmo con un docente <br />enfocado en ti
+    </h1>
+    <p class="mb-6 text-sm md:text-base font-medium">
+      Clases Particulares privadas diseñadas para adaptarse a tu horario, tus
+      metas y tu nivel académico.
+    </p>
+    <a
+      href="#planes"
+      class="inline-flex items-center justify-center gap-3 text-white font-medium text-2xl transition-colors duration-300"
+      style="width: 250px; height: 64px; background-color: #6255FA; border-radius: 15px;"
+      onmouseover="this.style.backgroundColor='#4e44d8'"
+      onmouseout="this.style.backgroundColor='#6255FA'"
+    >
+      <span>Comenzar</span>
+      <img src="/svg/play.svg" alt="Icono comenzar" class="w-5 h-5" />
+    </a>
+  </div>
+
+  <!-- Flecha ↓ con círculo exacto -->
+  <a
+    href="#beneficios"
+    class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-20"
+  >
+    <div
+      class="w-[100px] h-[100px] bg-[#6255FA] border-2 border-white rounded-full flex items-center justify-center"
+    >
+      <img
+        src="/svg/down.svg"
+        alt="Scroll down"
+        class="w-6 h-6 animate-bounce"
+      />
+    </div>
+  </a>
+</section>

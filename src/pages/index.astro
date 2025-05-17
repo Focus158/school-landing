@@ -1,0 +1,102 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Benefits from "../components/Benefits.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import Pricing from "../components/Pricing.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>ZenEdu</title>
+  </head>
+  <body>
+    <Header />
+    <Hero />
+    <Benefits />
+    <CtaBanner />
+    <Pricing />
+    <Footer />
+
+    <!-- Botón flotante de WhatsApp -->
+    <a
+      href="https://wa.me/51996096191"
+      class="fixed bottom-4 right-4 z-50 bg-[#25D366] hover:bg-[#1ebe5d] text-white p-4 rounded-full shadow-lg transition duration-300"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contáctanos por WhatsApp"
+    >
+      <img src="/svg/whatsapp.svg" alt="WhatsApp" class="w-6 h-6" />
+    </a>
+  </body>
+</html>
+
+<script>
+  // Animación al hacer scroll
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove("opacity-0");
+            entry.target.classList.add("fade-up");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const ctaSection = document.querySelector("#planes");
+    if (ctaSection) observer.observe(ctaSection);
+  });
+
+  // Geolocalización por país y cambio de datos
+  window.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const res = await fetch("https://ipapi.co/json/");
+      const data = await res.json();
+      const code = data.country_code;
+
+      const precio1 = document.getElementById("precio-individual");
+      const precio2 = document.getElementById("precio-pack");
+      const precio3 = document.getElementById("precio-intensivo");
+
+      if (!precio1 || !precio2 || !precio3) return;
+
+      switch (code) {
+        case "CL": // Chile
+          precio1.textContent = "7.000";
+          precio2.textContent = "24.000";
+          precio3.textContent = "50.000";
+          break;
+
+        case "CO": // Colombia
+          precio1.textContent = "30.000";
+          precio2.textContent = "100.000";
+          precio3.textContent = "220.000";
+          break;
+
+        case "BR": // Brasil
+          precio1.textContent = "R$ 35";
+          precio2.textContent = "R$ 110";
+          precio3.textContent = "R$ 250";
+          break;
+
+        default: // Perú o internacional
+          precio1.textContent = "30";
+          precio2.textContent = "100";
+          precio3.textContent = "220";
+          break;
+      }
+    } catch (error) {
+      console.error("No se pudo obtener el país:", error);
+    }
+  });
+</script>

@@ -1,0 +1,101 @@
+---
+// Astro
+import menuIcon from "../../public/svg/menu.svg?url";
+---
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    height: 3px;
+    background-color: #6255FA;
+    border-radius: 9999px;
+  }
+</style>
+
+<header class="sticky top-0 z-50 bg-white shadow-sm">
+  <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+    <!-- Logo -->
+    <a href="#inicio" class="text-2xl font-bold text-[#6255FA]">ZenEdu</a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex gap-6 text-gray-500 font-medium">
+      <a href="#inicio" class="nav-link relative pb-1 transition-all duration-300">Inicio</a>
+      <a href="#beneficios" class="nav-link relative pb-1 transition-all duration-300">Beneficios</a>
+      <a href="#planes" class="nav-link relative pb-1 transition-all duration-300">Planes</a>
+      <a href="#contacto" class="nav-link relative pb-1 transition-all duration-300">Contacto</a>
+    </nav>
+
+    <!-- Mobile Menu Icon -->
+    <button class="md:hidden" id="mobileMenuBtn">
+      <img src={menuIcon} alt="Menu" class="w-6 h-6" />
+    </button>
+  </div>
+
+  <!-- Mobile Menu Dropdown -->
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-3 text-gray-600">
+    <a href="#inicio" class="nav-link">Inicio</a>
+    <a href="#beneficios" class="nav-link">Beneficios</a>
+    <a href="#planes" class="nav-link">Planes</a>
+    <a href="#contacto" class="nav-link">Contacto</a>
+  </div>
+
+  <script type="module" is:inline>
+    const links = document.querySelectorAll(".nav-link");
+    const sections = ["inicio", "beneficios", "planes", "contacto"];
+
+    const activateLink = (id) => {
+      links.forEach((l) =>
+        l.classList.remove(
+          "text-[#6255FA]",
+          "font-semibold",
+          "active"
+        )
+      );
+      const link = document.querySelector(`a[href="#${id}"]`);
+      link?.classList.add("text-[#6255FA]", "font-semibold", "active");
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            activateLink(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    // Observar secciones
+    sections.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    // 🔥 Forzar activación de "inicio" al cargar si está visible
+    window.addEventListener("load", () => {
+      const section = document.getElementById("inicio");
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+          activateLink("inicio");
+        }
+      }
+    });
+
+    // Mobile menu toggle
+    const btn = document.getElementById("mobileMenuBtn");
+    const menu = document.getElementById("mobileMenu");
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  </script>
+</header>
