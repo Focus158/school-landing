@@ -25,87 +25,18 @@ import Footer from "../components/Footer.astro";
     <Footer />
 
     <!-- Botón flotante de WhatsApp -->
-    <a
-      id="wspp-btn"
-      href="https://wa.me/51996096191"
-      class="fixed bottom-4 right-4 z-50 bg-[#25D366] hover:bg-[#1ebe5d] text-white p-4 rounded-full shadow-lg transition duration-300"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Contáctanos por WhatsApp"
-    >
-      <img src="/svg/whatsapp.svg" alt="WhatsApp" class="w-6 h-6" />
-    </a>
+<a
+  id="wspp-btn"
+  href="https://wa.me/51996096191"
+  class="fixed bottom-4 right-4 z-50 bg-[#25D366] hover:bg-[#1ebe5d] text-white p-6 rounded-full shadow-lg transition duration-300"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Contáctanos por WhatsApp"
+>
+  <img src="/svg/whatsapp.svg" alt="WhatsApp" class="w-9 h-9" />
+</a>
+
   </body>
 </html>
 
-<!-- Script para animaciones y geolocalización -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // Animación en CTA
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove("opacity-0");
-            entry.target.classList.add("fade-up");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    const ctaSection = document.querySelector("#planes");
-    if (ctaSection) {
-      observer.observe(ctaSection);
-    }
-
-    // Geolocalización por país
-    const updateContentForCountry = (code) => {
-      const btn = document.getElementById("wspp-btn");
-      const currencySpans = document.querySelectorAll(
-        "#precios .currency-symbol"
-      );
-      const prices = document.querySelectorAll(
-        "#precios p span.text-3xl"
-      );
-
-      if (!btn || prices.length < 3) return;
-
-      const setContent = (href, symbol, values) => {
-        btn.href = href;
-        currencySpans.forEach((el) => (el.textContent = symbol));
-        prices.forEach((el, i) => (el.textContent = values[i]));
-      };
-
-      if (code === "PE") {
-        setContent("https://wa.me/51996096191", "S/.", ["30", "100", "220"]);
-      } else if (code === "CL") {
-        setContent("https://wa.me/56987654321", "$", ["7000", "24000", "52000"]);
-      } else if (code === "CO") {
-        setContent("https://wa.me/573001234567", "$", ["25000", "85000", "190000"]);
-      } else {
-        // Default a Perú
-        setContent("https://wa.me/51996096191", "S/.", ["30", "100", "220"]);
-      }
-    };
-
-    // Detectar país (producción) o simulado
-    if (location.hostname === "localhost") {
-      const simulated = "PE"; // Cambiar por 'CL', 'CO', etc.
-      console.log("País simulado (modo local):", simulated);
-      updateContentForCountry(simulated);
-    } else {
-      fetch("https://ipinfo.io/json?token=ce97066c11fc03")
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("País detectado en producción:", data.country);
-          updateContentForCountry(data.country);
-        })
-        .catch(() => {
-          console.log("Error al detectar país. Usando PE por defecto.");
-          updateContentForCountry("PE");
-        });
-    }
-  });
-</script>
+<script type="module" src="/dist/pricing.js"></script>

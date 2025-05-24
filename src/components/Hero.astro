@@ -1,59 +1,89 @@
----
-
----
-
-<section
-  id="inicio"
-  class="relative min-h-screen flex items-center justify-center text-white text-center"
->
-  <!-- Imagen de fondo -->
+<section id="inicio" class="relative min-h-screen overflow-hidden">
+  <!-- Fondo degradado -->
   <img
-    src="/students/hero.jpg"
-    alt="Estudiantes"
+    src="/hero/gradiente.png"
+    alt="Fondo degradado"
     class="absolute inset-0 w-full h-full object-cover z-0"
   />
 
-  <!-- Capa oscura personalizada -->
+  <!-- Contenedor principal -->
   <div
-    class="absolute inset-0 z-10"
-    style="background-color: rgba(18, 15, 45, 0.5);"
+    class="relative grid grid-cols-1 lg:grid-cols-[60%_40%] min-h-screen items-center z-10"
   >
-  </div>
-
-  <!-- Contenido -->
-  <div class="relative z-20 max-w-3xl px-4">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-      Estudia a tu ritmo con un docente <br />enfocado en ti pruebas
-    </h1>
-    <p class="mb-6 text-sm md:text-base font-medium">
-      Clases Particulares privadas diseñadas para adaptarse a tu horario, tus
-      metas y tu nivel académico.
-    </p>
-    <a
-      href="#planes"
-      class="inline-flex items-center justify-center gap-3 text-white font-medium text-2xl transition-colors duration-300"
-      style="width: 250px; height: 64px; background-color: #6255FA; border-radius: 15px;"
-      onmouseover="this.style.backgroundColor='#4e44d8'"
-      onmouseout="this.style.backgroundColor='#6255FA'"
-    >
-      <span>Comenzar</span>
-      <img src="/svg/play.svg" alt="Icono comenzar" class="w-5 h-5" />
-    </a>
-  </div>
-
-  <!-- Flecha ↓ con círculo exacto -->
-  <a
-    href="#beneficios"
-    class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-20"
-  >
+    <!-- Columna izquierda: Texto -->
     <div
-      class="w-[100px] h-[100px] bg-[#6255FA] border-2 border-white rounded-full flex items-center justify-center"
+      class="relative h-full flex flex-col justify-center px-6 sm:px-10 md:px-16 z-10"
     >
+      <!-- Círculo decorativo para móviles y tablets -->
       <img
-        src="/svg/down.svg"
-        alt="Scroll down"
-        class="w-6 h-6 animate-bounce"
+        src="/svg/circle_animated.svg"
+        alt="Decoración"
+        class="absolute top-6 left-6 sm:top-8 sm:left-8 md:top-12 md:left-12 z-10 ripple block lg:hidden"
+      />
+
+      <!-- Círculo decorativo para escritorio -->
+      <img
+        src="/svg/circle_animated.svg"
+        alt="Decoración"
+        class="absolute top-[6rem] left-16 z-10 ripple hidden lg:block"
+      />
+
+      <!-- Contenido textual -->
+      <div
+        class="relative z-20 max-w-xl text-left lg:text-left text-center lg:text-start mx-auto lg:mx-0"
+      >
+        <p
+          class="text-[#6255FA] mb-2 font-medium text-sm md:text-lg lg:text-xl transition-all duration-300 ease-in-out hover-glow"
+        >
+          Tu primera clase con 50% de descuento.
+        </p>
+
+        <h1
+          class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 leading-tight text-black"
+        >
+          Empieza a mejorar desde hoy <span class="text-[#6255FA]">!</span>
+        </h1>
+        <p class="mb-6 text-black text-sm md:text-base font-medium">
+          Reserva una clase particular con un docente solo enfocado en ti y tus
+          objetivos
+        </p>
+        <a
+          href="https://wa.me/51996096191"
+          target="_blank"
+          class="inline-flex items-center justify-center gap-3 text-white font-medium text-base px-6 py-3 rounded-xl transition duration-300"
+          style="background-color: #6255FA;"
+          onmouseover="this.style.backgroundColor='#4e44d8'"
+          onmouseout="this.style.backgroundColor='#6255FA'"
+        >
+          <img src="/svg/whatsapp.svg" alt="WhatsApp" class="w-5 h-5" />
+          Escríbenos por WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- Columna derecha: Imagen + fondo morado + estrella -->
+    <div
+      class="relative hidden lg:flex min-h-[500px] sm:min-h-[600px] lg:min-h-screen items-end justify-center z-10"
+    >
+      <!-- Fondo morado perfectamente alineado -->
+      <div
+        class="absolute bottom-0 right-0 w-[460px] h-full bg-[#6255FA] z-[-1]"
+      >
+      </div>
+
+      <!-- Estrella decorativa -->
+      <img
+        src="/svg/animated.svg"
+        alt="Decoración"
+        class="absolute top-6 right-6 sm:top-10 sm:right-[60px] z-10 rotate-slow"
+      />
+
+      <!-- Imagen del docente -->
+      <img
+        src="/hero/person.png"
+        alt="Docente"
+        class="absolute bottom-0 z-10 object-contain w-auto h-auto max-h-[95vh]"
       />
     </div>
-  </a>
+  </div>
 </section>

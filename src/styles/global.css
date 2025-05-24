@@ -10,6 +10,7 @@ body {
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -18,4 +19,67 @@ body {
 
 .fade-up {
   animation: fade-up 0.8s ease-out forwards;
+}
+
+
+@keyframes rotate-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-slow {
+  animation: rotate-slow 10s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.ripple {
+  animation: ripple 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes rippleAnim {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+}
+.ripple {
+  animation: rippleAnim 3s ease-in-out infinite;
+}
+
+@keyframes rotateSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.rotate-slow {
+  animation: rotateSlow 20s linear infinite;
+}
+
+
+
+@layer utilities {
+  .hover-glow:hover {
+    text-shadow: 0 0 8px #6255FA;
+    transform: scale(1.03);
+  }
 }
