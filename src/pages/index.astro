@@ -58,7 +58,7 @@ import Footer from "../components/Footer.astro";
     const ctaSection = document.querySelector("#planes");
     if (ctaSection) observer.observe(ctaSection);
 
-    // ✨ Precios dinámicos
+    // ✨ Función para actualizar contenido
     const setContent = (
       whatsappURL,
       currencySymbol,
@@ -80,30 +80,49 @@ import Footer from "../components/Footer.astro";
         intensivo: document.getElementById("descripcion-intensivo"),
       };
 
-      if (!btn || !priceEls.individual || !descEls.individual) return;
+      // Botón flotante
+      if (btn) btn.href = whatsappURL;
 
-      btn.href = whatsappURL;
+      // Precios
       currencySpans.forEach((el) => (el.textContent = currencySymbol));
+      if (priceEls.individual) {
+        priceEls.individual.textContent = hourlyPrices[0];
+        priceEls.pack.textContent = hourlyPrices[1];
+        priceEls.intensivo.textContent = hourlyPrices[2];
 
-      priceEls.individual.textContent = hourlyPrices[0];
-      priceEls.pack.textContent = hourlyPrices[1];
-      priceEls.intensivo.textContent = hourlyPrices[2];
-
-      descEls.individual.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[0]}`;
-      descEls.pack.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[1]}`;
-      descEls.intensivo.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[2]}`;
+        descEls.individual.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[0]}`;
+        descEls.pack.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[1]}`;
+        descEls.intensivo.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[2]}`;
+      }
     };
 
+    // ✨ Función para actualizar redes del footer según país
+    const updateFooterLinks = (code) => {
+      const fbLink = document.querySelector('a[aria-label="Facebook"]');
+      const igLink = document.querySelector('a[aria-label="Instagram"]');
+      const wsLink = document.querySelector('a[aria-label="WhatsApp"]');
+
+      if (code === "ES") {
+        if (fbLink) fbLink.href = "https://www.facebook.com/profile.php?id=61574901986219";
+        if (igLink) igLink.href = "https://www.instagram.com/academiazenedues";
+        if (wsLink) wsLink.href = "https://wa.me/message/L5T6WXLAGYXFM1";
+      } else {
+        if (fbLink) fbLink.href = "https://www.facebook.com/profile.php?id=61570520392211";
+        if (igLink) igLink.href = "https://www.instagram.com/academiazenedu/";
+        if (wsLink) wsLink.href = "https://wa.me/51996096191";
+      }
+    };
+
+    // ✨ Lógica principal para detectar país y actualizar
     const updateContentForCountry = (code) => {
       if (code === "ES") {
         setContent(
-          "https://wa.me/34600111222",
+          "https://wa.me/message/L5T6WXLAGYXFM1",
           "€",
           ["10", "12.5", "15"],
           ["70", "87.5", "100"]
         );
       } else {
-        // Default Perú
         setContent(
           "https://wa.me/51996096191",
           "S/.",
@@ -111,12 +130,16 @@ import Footer from "../components/Footer.astro";
           ["100", "160", "220"]
         );
       }
+
+      updateFooterLinks(code);
     };
 
+    // 🔁 Modo desarrollo local
     if (location.hostname === "localhost") {
       const simulated = "PE"; // o "ES"
       updateContentForCountry(simulated);
     } else {
+      // Detectar país real por IP
       fetch("https://ipinfo.io/json?token=ce97066c11fc03")
         .then((res) => res.json())
         .then((data) => {
@@ -128,4 +151,5 @@ import Footer from "../components/Footer.astro";
     }
   });
 </script>
+
 
