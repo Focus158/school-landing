@@ -39,4 +39,93 @@ import Footer from "../components/Footer.astro";
   </body>
 </html>
 
-<script type="module" src="/dist/pricing.js"></script>
+<script type="module" is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    // ✨ Animación CTA planes
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove("opacity-0");
+            entry.target.classList.add("fade-up");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const ctaSection = document.querySelector("#planes");
+    if (ctaSection) observer.observe(ctaSection);
+
+    // ✨ Precios dinámicos
+    const setContent = (
+      whatsappURL,
+      currencySymbol,
+      hourlyPrices,
+      packagePrices
+    ) => {
+      const btn = document.getElementById("wspp-btn");
+      const currencySpans = document.querySelectorAll("#precios .currency-symbol");
+
+      const priceEls = {
+        individual: document.getElementById("precio-individual"),
+        pack: document.getElementById("precio-pack"),
+        intensivo: document.getElementById("precio-intensivo"),
+      };
+
+      const descEls = {
+        individual: document.getElementById("descripcion-individual"),
+        pack: document.getElementById("descripcion-pack"),
+        intensivo: document.getElementById("descripcion-intensivo"),
+      };
+
+      if (!btn || !priceEls.individual || !descEls.individual) return;
+
+      btn.href = whatsappURL;
+      currencySpans.forEach((el) => (el.textContent = currencySymbol));
+
+      priceEls.individual.textContent = hourlyPrices[0];
+      priceEls.pack.textContent = hourlyPrices[1];
+      priceEls.intensivo.textContent = hourlyPrices[2];
+
+      descEls.individual.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[0]}`;
+      descEls.pack.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[1]}`;
+      descEls.intensivo.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[2]}`;
+    };
+
+    const updateContentForCountry = (code) => {
+      if (code === "ES") {
+        setContent(
+          "https://wa.me/34600111222",
+          "€",
+          ["10", "12.5", "15"],
+          ["70", "87.5", "100"]
+        );
+      } else {
+        // Default Perú
+        setContent(
+          "https://wa.me/51996096191",
+          "S/.",
+          ["30", "100", "220"],
+          ["100", "160", "220"]
+        );
+      }
+    };
+
+    if (location.hostname === "localhost") {
+      const simulated = "PE"; // o "ES"
+      updateContentForCountry(simulated);
+    } else {
+      fetch("https://ipinfo.io/json?token=ce97066c11fc03")
+        .then((res) => res.json())
+        .then((data) => {
+          updateContentForCountry(data.country);
+        })
+        .catch(() => {
+          updateContentForCountry("PE");
+        });
+    }
+  });
+</script>
+
