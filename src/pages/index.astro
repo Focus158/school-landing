@@ -25,17 +25,16 @@ import Footer from "../components/Footer.astro";
     <Footer />
 
     <!-- Botón flotante de WhatsApp -->
-<a
-  id="wspp-btn"
-  href="https://wa.me/51996096191"
-  class="fixed bottom-4 right-4 z-50 bg-[#25D366] hover:bg-[#1ebe5d] text-white p-6 rounded-full shadow-lg transition duration-300"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Contáctanos por WhatsApp"
->
-  <img src="/svg/whatsapp.svg" alt="WhatsApp" class="w-9 h-9" />
-</a>
-
+    <a
+      id="wspp-btn"
+      href="https://wa.me/51996096191"
+      class="fixed bottom-4 right-4 z-50 bg-[#25D366] hover:bg-[#1ebe5d] text-white p-6 rounded-full shadow-lg transition duration-300"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contáctanos por WhatsApp"
+    >
+      <img src="/svg/whatsapp.svg" alt="WhatsApp" class="w-9 h-9" />
+    </a>
   </body>
 </html>
 
@@ -58,15 +57,18 @@ import Footer from "../components/Footer.astro";
     const ctaSection = document.querySelector("#planes");
     if (ctaSection) observer.observe(ctaSection);
 
-    // ✨ Función para actualizar contenido
+    // ✨ Función para actualizar contenido dinámico
     const setContent = (
       whatsappURL,
       currencySymbol,
       hourlyPrices,
       packagePrices
     ) => {
-      const btn = document.getElementById("wspp-btn");
-      const currencySpans = document.querySelectorAll("#precios .currency-symbol");
+      const btn = document.getElementById("wspp-btn"); // Botón flotante
+      const heroBtn = document.getElementById("wspp-hero"); // Botón del hero
+      const currencySpans = document.querySelectorAll(
+        "#precios .currency-symbol"
+      );
 
       const priceEls = {
         individual: document.getElementById("precio-individual"),
@@ -80,11 +82,11 @@ import Footer from "../components/Footer.astro";
         intensivo: document.getElementById("descripcion-intensivo"),
       };
 
-      // Botón flotante
       if (btn) btn.href = whatsappURL;
+      if (heroBtn) heroBtn.href = whatsappURL;
 
-      // Precios
       currencySpans.forEach((el) => (el.textContent = currencySymbol));
+
       if (priceEls.individual) {
         priceEls.individual.textContent = hourlyPrices[0];
         priceEls.pack.textContent = hourlyPrices[1];
@@ -96,24 +98,28 @@ import Footer from "../components/Footer.astro";
       }
     };
 
-    // ✨ Función para actualizar redes del footer según país
+    // ✨ Actualizar redes sociales del footer
     const updateFooterLinks = (code) => {
       const fbLink = document.querySelector('a[aria-label="Facebook"]');
       const igLink = document.querySelector('a[aria-label="Instagram"]');
       const wsLink = document.querySelector('a[aria-label="WhatsApp"]');
 
       if (code === "ES") {
-        if (fbLink) fbLink.href = "https://www.facebook.com/profile.php?id=61574901986219";
+        if (fbLink)
+          fbLink.href =
+            "https://www.facebook.com/profile.php?id=61574901986219";
         if (igLink) igLink.href = "https://www.instagram.com/academiazenedues";
         if (wsLink) wsLink.href = "https://wa.me/message/L5T6WXLAGYXFM1";
       } else {
-        if (fbLink) fbLink.href = "https://www.facebook.com/profile.php?id=61570520392211";
+        if (fbLink)
+          fbLink.href =
+            "https://www.facebook.com/profile.php?id=61570520392211";
         if (igLink) igLink.href = "https://www.instagram.com/academiazenedu/";
         if (wsLink) wsLink.href = "https://wa.me/51996096191";
       }
     };
 
-    // ✨ Lógica principal para detectar país y actualizar
+    // ✨ Detectar país y aplicar cambios
     const updateContentForCountry = (code) => {
       if (code === "ES") {
         setContent(
@@ -134,12 +140,12 @@ import Footer from "../components/Footer.astro";
       updateFooterLinks(code);
     };
 
-    // 🔁 Modo desarrollo local
+    // 🔁 En desarrollo, simula país
     if (location.hostname === "localhost") {
-      const simulated = "PE"; // o "ES"
+      const simulated = "PE"; // Cambia a "ES" si quieres probar España
       updateContentForCountry(simulated);
     } else {
-      // Detectar país real por IP
+      // Detecta por IP real
       fetch("https://ipinfo.io/json?token=ce97066c11fc03")
         .then((res) => res.json())
         .then((data) => {
@@ -151,5 +157,3 @@ import Footer from "../components/Footer.astro";
     }
   });
 </script>
-
-
