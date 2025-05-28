@@ -1,6 +1,6 @@
 <main
   id="inicio"
-  class="scroll-mt-[64px] grid lg:grid-cols-2 place-items-start pt-4 pb-2 lg:pt-20 lg:pb-10 overflow-hidden relative bg-gradient-to-br from-[#B9A7FF] to-[#6255FA] min-h-screen"
+  class="scroll-mt-[64px] grid lg:grid-cols-2 place-items-start lg:place-items-center pt-4 pb-2 lg:pt-20 lg:pb-10 overflow-hidden relative bg-gradient-to-br from-[#B9A7FF] to-[#6255FA] min-h-screen"
 >
   <!-- DECORACIONES ANIMADAS -->
   <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -61,7 +61,7 @@
   />
 
   <!-- Ilustración responsive móvil -->
-  <div class="overflow-hidden max-h-[380px] flex justify-center">
+ <div class="flex lg:hidden justify-center px-4 order-1 relative mt-[-10px]">
     <script
       src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
       type="module"></script>
@@ -72,13 +72,15 @@
       speed="1"
       loop
       autoplay
-      class="scale-[1.2] origin-top animate-fade-in"></dotlottie-player>
+    class="scale-[1.2] origin-top animate-fade-in"
+    ></dotlottie-player>
   </div>
+
 
   <!-- TEXTO -->
   <div class="z-20 max-w-xl px-6 text-white order-2 lg:order-1 relative">
     <!-- Promo -->
-    <h1 class="text-5xl sm:text-6xl font-bold mb-5 leading-tight">
+     <h1 class="text-5xl sm:text-6xl font-bold mb-5 leading-tight">
       Convierte tus <br />
       metas en <span class="text-[#6255FA]">logros</span>
     </h1>
@@ -89,6 +91,8 @@
         🎉 Tu primera clase con 50% de descuento
       </p>
     </div>
+
+    
 
     <p class="mb-8 text-base sm:text-lg font-medium text-white">
       Reserva una clase privada con un docente enfocado solo en ti.
