@@ -1,6 +1,6 @@
 <main
   id="inicio"
-  class="scroll-mt-[64px] grid lg:grid-cols-2 place-items-center lg:place-items-center pt-4 pb-2 lg:pt-20 lg:pb-10 overflow-hidden relative bg-gradient-to-br from-[#B9A7FF] to-[#6255FA] min-h-screen"
+class="scroll-mt-[64px] flex flex-col lg:grid lg:grid-cols-2 place-items-center lg:place-items-center pt-4 pb-2 lg:pt-20 lg:pb-10 overflow-hidden relative bg-gradient-to-br from-[#B9A7FF] to-[#6255FA] min-h-screen"
 >
   <!-- DECORACIONES ANIMADAS -->
   <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -61,40 +61,61 @@
   />
 
   <!-- Ilustración responsive móvil -->
-<div class="flex lg:hidden justify-center px-4 order-1 relative mt-[-10px] items-start">
-  <script
-    src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
-    type="module"></script>
+  <div
+  class="flex lg:hidden justify-center px-4 order-1 relative -mt-10 sm:-mt-20 items-start"
+  >
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+      type="module"></script>
 
-  <dotlottie-player
-    src="https://lottie.host/463208d5-6946-44c6-aa6f-d368fc70683d/guEAFpqxHs.lottie"
-    background="transparent"
-    speed="1"
-    loop
-    autoplay
-    class="scale-[1.2] origin-top animate-fade-in"
-  ></dotlottie-player>
-</div>
-
+    <dotlottie-player
+      src="https://lottie.host/463208d5-6946-44c6-aa6f-d368fc70683d/guEAFpqxHs.lottie"
+      background="transparent"
+      speed="1"
+      loop
+      autoplay
+      class="w-[320px] h-[320px] sm:w-[320px] sm:h-[320px] animate-fade-in"
+    ></dotlottie-player>
+  </div>
 
   <!-- TEXTO -->
   <div class="z-20 max-w-xl px-6 text-white order-2 lg:order-1 relative">
     <!-- Promo -->
-     <h1 class="text-5xl sm:text-6xl font-bold mb-5 leading-tight">
+
+    <!-- Versión para móviles: todo en una línea -->
+    <h1 class="text-xl font-bold mb-3 leading-snug sm:hidden">
+      Convierte tus metas en <span class="text-[#6255FA]">logros</span>
+    </h1>
+
+    <!-- Versión para escritorio: con salto de línea -->
+    <h1 class="hidden sm:block text-5xl font-bold mb-5 leading-tight">
       Convierte tus <br />
       metas en <span class="text-[#6255FA]">logros</span>
     </h1>
+
     <div class="relative inline-block mb-6">
+      <!-- Versión móvil -->
       <p
-        class="px-5 py-2 rounded-full font-semibold text-sm sm:text-base bg-[#6255FA] shadow-md"
+        class="px-4 py-2 rounded-full font-semibold text-sm bg-[#6255FA] shadow-md sm:hidden"
+      >
+        🎉 Tu primera clase con 50% de descuento
+      </p>
+
+      <!-- Versión escritorio -->
+      <p
+        class="hidden sm:inline-block px-5 py-2 rounded-full font-semibold text-base bg-[#6255FA] shadow-md"
       >
         🎉 Tu primera clase con 50% de descuento
       </p>
     </div>
 
-    
+    <!-- Versión móvil (compacta y en una sola línea) -->
+    <p class="mb-4 text-sm font-medium text-white sm:hidden">
+      Clase privada con docente exclusivo para ti.
+    </p>
 
-    <p class="mb-8 text-base sm:text-lg font-medium text-white">
+    <!-- Versión escritorio (texto completo) -->
+    <p class="hidden sm:block mb-8 text-lg font-medium text-white">
       Reserva una clase privada con un docente enfocado solo en ti.
     </p>
 
