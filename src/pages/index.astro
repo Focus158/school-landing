@@ -62,7 +62,8 @@ import Footer from "../components/Footer.astro";
       whatsappURL,
       currencySymbol,
       hourlyPrices,
-      packagePrices
+      packagePrices,
+      titles
     ) => {
       const btn = document.getElementById("wspp-btn"); // Botón flotante
       const heroBtn = document.getElementById("wspp-hero"); // Botón del hero
@@ -82,19 +83,32 @@ import Footer from "../components/Footer.astro";
         intensivo: document.getElementById("descripcion-intensivo"),
       };
 
+      const titleEls = {
+        individual: document.getElementById("titulo-individual"),
+        pack: document.getElementById("titulo-pack"),
+        intensivo: document.getElementById("titulo-intensivo"),
+      };
+
       if (btn) btn.href = whatsappURL;
       if (heroBtn) heroBtn.href = whatsappURL;
 
       currencySpans.forEach((el) => (el.textContent = currencySymbol));
 
-      if (priceEls.individual) {
+      if (priceEls.individual && descEls.individual && titleEls.individual) {
+        // Precios por hora
         priceEls.individual.textContent = hourlyPrices[0];
         priceEls.pack.textContent = hourlyPrices[1];
         priceEls.intensivo.textContent = hourlyPrices[2];
 
+        // Descripciones de los paquetes
         descEls.individual.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[0]}`;
         descEls.pack.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[1]}`;
         descEls.intensivo.textContent = `Paquete de 8 horas por ${currencySymbol} ${packagePrices[2]}`;
+
+        // Títulos de los planes
+        titleEls.individual.textContent = titles[0];
+        titleEls.pack.textContent = titles[1];
+        titleEls.intensivo.textContent = titles[2];
       }
     };
 
@@ -126,26 +140,38 @@ import Footer from "../components/Footer.astro";
           "https://wa.me/message/L5T6WXLAGYXFM1",
           "€",
           ["10", "12.5", "15"],
-          ["70", "87.5", "100"]
+          ["70", "87.5", "100"],
+          ["PRIMARIA - ESO", "BACHILLER", "UNIVERSITARIO"]
         );
       } else {
         setContent(
           "https://wa.me/51996096191",
           "S/.",
-          ["30", "100", "220"],
-          ["100", "160", "220"]
+          ["25", "27.5", "30"],
+          ["187.5", "207.5", "227.5"],
+          ["ESCOLAR / PRE", "UNIVERSITARIO", "FACULTAD"]
         );
       }
 
       updateFooterLinks(code);
+
+      // 👇 Mostrar u ocultar banner de promoción
+      const promoBanner = document.getElementById("promo-banner");
+      if (promoBanner) {
+        if (code === "ES") {
+          promoBanner.style.display = "inline-block";
+        } else {
+          promoBanner.style.display = "none";
+        }
+      }
     };
 
     // 🔁 En desarrollo, simula país
     if (location.hostname === "localhost") {
-      const simulated = "PE"; // Cambia a "ES" si quieres probar España
+      const simulated = "PE"; // Cambia a "ES" si quieres probar España localmente
       updateContentForCountry(simulated);
     } else {
-      // Detecta por IP real
+      // Detecta por IP real en producción
       fetch("https://ipinfo.io/json?token=ce97066c11fc03")
         .then((res) => res.json())
         .then((data) => {
