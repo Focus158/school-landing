@@ -159,9 +159,21 @@ import Footer from "../components/Footer.astro";
       const promoBanner = document.getElementById("promo-banner");
       if (promoBanner) {
         if (code === "ES") {
-          promoBanner.style.display = "inline-block";
+          promoBanner.classList.remove("hidden"); // Mostrar el banner solo en España
         } else {
-          promoBanner.style.display = "none";
+          promoBanner.classList.add("hidden"); // Ocultar (no ocupa espacio) en Perú y otros países
+        }
+      }
+
+      const lottieMobile = document.getElementById("lottie-mobile");
+      if (lottieMobile) {
+        if (code === "PE") {
+          lottieMobile.classList.remove("w-[320px]", "h-[320px]");
+          lottieMobile.classList.add("w-[380px]", "h-[380px]");
+        } else {
+          // Por si acaso vuelve de otro país
+          lottieMobile.classList.remove("w-[380px]", "h-[380px]");
+          lottieMobile.classList.add("w-[320px]", "h-[320px]");
         }
       }
     };
