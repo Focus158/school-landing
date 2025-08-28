@@ -27,7 +27,7 @@ import Footer from "../components/Footer.astro";
     <!-- Botón flotante de WhatsApp -->
     <a
       id="wspp-btn"
-      href="https://wa.me/51996096191"
+      href="https://wa.me/message/6IDZ655ZCPJCE1"
       class="fixed bottom-4 right-4 z-50 bg-[#25D366] hover:bg-[#1ebe5d] text-white p-6 rounded-full shadow-lg transition duration-300"
       target="_blank"
       rel="noopener noreferrer"
@@ -119,17 +119,17 @@ import Footer from "../components/Footer.astro";
       const wsLink = document.querySelector('a[aria-label="WhatsApp"]');
 
       if (code === "ES") {
-        if (fbLink)
-          fbLink.href =
-            "https://www.facebook.com/profile.php?id=61574901986219";
-        if (igLink) igLink.href = "https://www.instagram.com/academiazenedues";
-        if (wsLink) wsLink.href = "https://wa.me/message/L5T6WXLAGYXFM1";
+        if (fbLink) fbLink.href = "https://www.facebook.com/share/1GqZ8dmtTT/";
+        if (igLink)
+          igLink.href =
+            "https://www.instagram.com/academiasavant?igsh=cDFidDNwMHF2ZzEy";
+        if (wsLink) wsLink.href = "https://wa.me/message/UQXZ46TNUFWFM1";
       } else {
-        if (fbLink)
-          fbLink.href =
-            "https://www.facebook.com/profile.php?id=61570520392211";
-        if (igLink) igLink.href = "https://www.instagram.com/academiazenedu/";
-        if (wsLink) wsLink.href = "https://wa.me/51996096191";
+        if (fbLink) fbLink.href = "https://www.facebook.com/share/1CQkDpkpNH/";
+        if (igLink)
+          igLink.href =
+            "https://www.instagram.com/academiasavantpe?igsh=anczZWJ0bnB5Mm10";
+        if (wsLink) wsLink.href = "https://wa.me/message/6IDZ655ZCPJCE1";
       }
     };
 
@@ -137,7 +137,7 @@ import Footer from "../components/Footer.astro";
     const updateContentForCountry = (code) => {
       if (code === "ES") {
         setContent(
-          "https://wa.me/message/L5T6WXLAGYXFM1",
+          "https://wa.me/message/UQXZ46TNUFWFM1",
           "€",
           ["10", "12.5", "15"],
           ["70", "87.5", "100"],
@@ -145,7 +145,7 @@ import Footer from "../components/Footer.astro";
         );
       } else {
         setContent(
-          "https://wa.me/51996096191",
+          "https://wa.me/message/6IDZ655ZCPJCE1",
           "S/.",
           ["25", "27.5", "30"],
           ["187.5", "207.5", "227.5"],
