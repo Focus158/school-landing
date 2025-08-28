@@ -15,15 +15,17 @@ import menuIcon from "../../public/svg/menu.svg?url";
     bottom: 0;
     width: 50%;
     height: 3px;
-    background-color: #6255FA;
+  background-color: #001d52;
     border-radius: 9999px;
   }
 </style>
 
 <header class="sticky top-0 z-50 bg-white shadow-sm">
   <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-    <!-- Logo -->
-    <a href="#inicio" class="text-2xl font-bold text-[#6255FA]">ZenEdu</a>
+    <!-- Logo adaptado -->
+    <a href="#inicio" class="flex items-center">
+      <img src="/LOGO_SAVANT.png" alt="Logo" class="h-12 w-auto object-contain" style="margin:0;" />
+    </a>
 
     <!-- Desktop Nav -->
     <nav class="hidden md:flex gap-6 text-gray-500 font-medium">
@@ -54,13 +56,13 @@ import menuIcon from "../../public/svg/menu.svg?url";
     const activateLink = (id) => {
       links.forEach((l) =>
         l.classList.remove(
-          "text-[#6255FA]",
+          "text-[#001d52]",
           "font-semibold",
           "active"
         )
       );
       const link = document.querySelector(`a[href="#${id}"]`);
-      link?.classList.add("text-[#6255FA]", "font-semibold", "active");
+  link?.classList.add("text-[#001d52]", "font-semibold", "active");
     };
 
     const observer = new IntersectionObserver(
