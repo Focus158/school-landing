@@ -15,20 +15,20 @@ import menuIcon from "../../public/svg/menu.svg?url";
     bottom: 0;
     width: 50%;
     height: 3px;
-  background-color: #001d52;
+  background-color: var(--color-secundario);
     border-radius: 9999px;
   }
 </style>
 
-<header class="sticky top-0 z-50 bg-white shadow-sm">
+<header class="sticky top-0 z-50 bg-[var(--color-principal)] shadow-sm">
   <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
     <!-- Logo adaptado -->
     <a href="#inicio" class="flex items-center">
-      <img src="/LOGO_SAVANT.png" alt="Logo" class="h-12 w-auto object-contain" style="margin:0;" />
+  <img src="/SAVANT_ACADEMIA.png" alt="Savant Academia" class="h-14 md:h-16 w-auto object-contain rounded-lg" style="margin:0;" />
     </a>
 
     <!-- Desktop Nav -->
-    <nav class="hidden md:flex gap-6 text-gray-500 font-medium">
+    <nav class="hidden md:flex gap-6 text-white font-medium">
       <a href="#inicio" class="nav-link relative pb-1 transition-all duration-300">Inicio</a>
       <a href="#beneficios" class="nav-link relative pb-1 transition-all duration-300">Beneficios</a>
       <a href="#planes" class="nav-link relative pb-1 transition-all duration-300">Planes</a>
@@ -36,13 +36,13 @@ import menuIcon from "../../public/svg/menu.svg?url";
     </nav>
 
     <!-- Mobile Menu Icon -->
-    <button class="md:hidden" id="mobileMenuBtn">
-      <img src={menuIcon} alt="Menu" class="w-6 h-6" />
+    <button class="md:hidden" id="mobileMenuBtn" aria-label="Abrir menú">
+      <img src={menuIcon} alt="Menu" class="w-6 h-6 invert brightness-200" />
     </button>
   </div>
 
   <!-- Mobile Menu Dropdown -->
-  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-3 text-gray-600">
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 flex-col gap-3 text-white">
     <a href="#inicio" class="nav-link">Inicio</a>
     <a href="#beneficios" class="nav-link">Beneficios</a>
     <a href="#planes" class="nav-link">Planes</a>
@@ -62,7 +62,8 @@ import menuIcon from "../../public/svg/menu.svg?url";
         )
       );
       const link = document.querySelector(`a[href="#${id}"]`);
-  link?.classList.add("text-[#001d52]", "font-semibold", "active");
+      // Mantener texto blanco; solo resaltar con grosor y subrayado decorativo
+      link?.classList.add("font-semibold", "active");
     };
 
     const observer = new IntersectionObserver(
@@ -97,7 +98,12 @@ import menuIcon from "../../public/svg/menu.svg?url";
     const btn = document.getElementById("mobileMenuBtn");
     const menu = document.getElementById("mobileMenu");
     btn.addEventListener("click", () => {
-      menu.classList.toggle("hidden");
+      const isHidden = menu.classList.toggle("hidden");
+      if (!isHidden) {
+        menu.classList.add("flex");
+      } else {
+        menu.classList.remove("flex");
+      }
     });
   </script>
 </header>
